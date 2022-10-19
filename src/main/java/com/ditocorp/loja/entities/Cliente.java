@@ -1,12 +1,15 @@
 package com.ditocorp.loja.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +28,9 @@ public class Cliente implements Serializable {
 	private String estadoCliente;
 	private String cepCliente;
 	private String paisCliente;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Venda> vendas = new ArrayList<>();
 
 	public Cliente() {
 	}
@@ -104,6 +110,10 @@ public class Cliente implements Serializable {
 
 	public void setPaisCliente(String paisCliente) {
 		this.paisCliente = paisCliente;
+	}
+
+	public List<Venda> getVendas() {
+		return vendas;
 	}
 
 	@Override
