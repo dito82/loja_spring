@@ -3,6 +3,8 @@ package com.ditocorp.loja.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.ditocorp.loja.entities.enums.VendaStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,8 @@ public class Venda implements Serializable {
 	private Double precoVenda;
 	private Double custoVenda;
 
+	private Integer vendaStatus;
+
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
@@ -31,13 +35,15 @@ public class Venda implements Serializable {
 	public Venda() {
 	}
 
-	public Venda(Long numVenda, Long qtdVenda, Double precoVenda, Double custoVenda, Cliente cliente) {
+	public Venda(Long numVenda, Long qtdVenda, Double precoVenda, Double custoVenda, Cliente cliente,
+			VendaStatus vendaStatus) {
 		super();
 		this.numVenda = numVenda;
 		this.qtdVenda = qtdVenda;
 		this.precoVenda = precoVenda;
 		this.custoVenda = custoVenda;
 		this.cliente = cliente;
+		setVendaStatus(vendaStatus);
 	}
 
 	public Long getNumVenda() {
@@ -78,6 +84,16 @@ public class Venda implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public VendaStatus getVendaStatus() {
+		return VendaStatus.valueOf(vendaStatus);
+	}
+
+	public void setVendaStatus(VendaStatus vendaStatus) {
+		if (vendaStatus != null) {
+			this.vendaStatus = vendaStatus.getCode();
+		}
 	}
 
 	@Override
